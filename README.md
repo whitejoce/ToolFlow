@@ -6,6 +6,7 @@
 
 ### Overview
 
+A runtime-first MCP tool system. No workflow, Python-native tools, dynamic composition, stateless execution with FastMCP.
 ToolFlow is a full-stack platform based on the **Ephemeral Execution Model** for dynamic routing and observability of LLM Tools. It includes:
 
 - Django Gateway & Control Plane
