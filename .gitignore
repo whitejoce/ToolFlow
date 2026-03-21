@@ -1,0 +1,36 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual env
+.venv/
+venv/
+env/
+
+# Runtime logs/history
+*.log
+chat_history.txt
+MCP_server/chat_history.txt
+
+# SQLite runtime database
+*.sqlite3
+*.db
+
+# Frontend artifacts
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local env files
+.env
+.env.*
+!.env.example
