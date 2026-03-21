@@ -1,0 +1,40 @@
+{
+    "mcp": {
+        "django_port": 8000,
+        "bridge_sse_port": 8001
+    },
+    "server": {
+        "url": "http://127.0.0.1:8000",
+        "poll_interval": 2
+    },
+    "worker": {
+        "pools": [
+            {
+                "env": "prod",
+                "prefix": "node-prod",
+                "count": 3
+            },
+            {
+                "env": "test",
+                "prefix": "node-test",
+                "count": 1
+            }
+        ]
+    },
+    "tool_version": {
+        "active_conflict_policy": "deprecated",
+        "require_test_success_before_release": false
+    },
+    "sandbox": {
+        "execution_timeout": 10,
+        "allowed_modules": [
+            "math",
+            "json",
+            "time",
+            "random",
+            "re",
+            "collections",
+            "requests"
+        ]
+    }
+}
