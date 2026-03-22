@@ -86,9 +86,6 @@ Copy `.env.example` to `.env` and configure as needed:
 - `DJANGO_DEBUG`
 - `DJANGO_ALLOWED_HOSTS`
 - `DJANGO_CORS_ALLOWED_ORIGINS`
-- `OPENAI_BASE_URL`
-- `OPENAI_API_KEY`
-- `OPENAI_MODEL`
 
 ### Notes
 
