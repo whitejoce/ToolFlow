@@ -4,31 +4,36 @@
 
 ---
 
-## 中文说明
+**别再写 workflow 了。写个 Python 函数，那就是你的工具。**
 
-### 项目简介
+ToolFlow 是一个面向 LLM 应用的运行时优先 MCP 工具系统。不需要搭 DAG，不需要定义静态 pipeline，只需写普通的 Python 函数 —— 工具的调度、版本管理、隔离执行，全部由 ToolFlow 在运行时搞定。
 
-ToolFlow 是一个基于瞬态执行模型（Ephemeral Execution Model）的 LLM Tool 动态调度与全栈管理平台，包含：
+没有编排 DSL，无需每次改动都重新部署。工具在运行时动态组合，在沙箱中隔离执行，每次调用无状态、干净清爽。
 
-- Django 网关与控制面后端
-- MCP Bridge（STDIO/SSE）
-- 无状态 FastMCP 执行器与运行时配置
-- React 管理前端
+### 为什么选 ToolFlow？
 
-### 核心设计原则
-
-1. **最小命名空间原则**：每次调用创建独立上下文，绝对隔离，避免全局状态污染。
-2. **无状态执行原则**：MCP 执行节点不维护长期状态，天然支持多节点横向扩展。
-3. **控制面与执行面分离**：Django 负责管理工具资产与调度状态；FastMCP 专注无状态的代码执行。
-4. **失败可回收原则**：执行失败不影响系统整体稳定性，销毁上下文即完成回滚。
-5. **按需即时加载**：放弃传统热更新，在独立的沙箱中即时编译执行最新代码。
+- **无需工作流** —— 工具在运行时动态组合，而非提前写死
+- **Python 原生** —— 任意 Python 函数即可成为工具，零样板代码
+- **无状态 & 隔离执行** —— 每次执行在独立沙箱中运行，失败不影响其他调用
+- **控制面与执行面分离** —— Django 负责管理控制逻辑，FastMCP 专注无状态执行
+- **内置生命周期管理** —— 工具版本化、发布与状态监控，无需重启服务
 
 ### 系统架构流转
 
-1. **请求接入**：LLM / 客户端发起调用请求至 Django 控制面。
-2. **资产读取与派发**：控制面获取活跃版本的工具代码，并将任务派发给连接的 FastMCP 执行器。
-3. **瞬态执行**：执行器在短生命周期的安全沙箱中动态载入代码，执行并进行签名校验。
-4. **结果回传与销毁**：任务完成或失败后，沙箱即刻销毁，结果异步回传至控制面并最终返回给用户。
+#### 1. 架构示意图
+
+```mermaid
+graph TD
+  A[LLM / Client] -->|Tool Call| B[Django Gateway + Control Plane]
+  B -->|Fetch Tool Code/Version| C["DB / Storage"]
+  B -->|Dispatch Tasks| D{Queue/Dispatcher}
+  D --> E[FastMCP Executor 1]
+  D --> F[FastMCP Executor N]
+  E -->|Ephemeral Load + Execute| G[Ephemeral Tool Runtime Sandbox]
+  F -->|Ephemeral Load + Execute| H[Ephemeral Tool Runtime Sandbox]
+  E -->|Report Status/Result| B
+  F -->|Report Status/Result| B
+```
 
 ### 目录结构
 
@@ -87,5 +92,4 @@ python start_services.py
 
 - 运行时配置文件位于 `runtime/config.json`
 - MCP Bridge 脚本位于 `runtime/mcp_bridge.py`
-
 
