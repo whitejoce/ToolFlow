@@ -4,17 +4,19 @@
 
 ---
 
-### Overview
+**Stop building workflows. Write a Python function. That's your tool.**
 
-Stop building workflows. Let tools compose themselves.
+ToolFlow is a runtime-first MCP tool system for LLM applications. Forget DAGs and static pipelines — write plain Python functions and let ToolFlow handle dispatch, versioning, isolation, and execution at runtime.
 
-ToolFlow is a runtime-first MCP tool system for LLM applications.
+No orchestration DSL. No full redeployment on every change. Tools compose dynamically, run in isolated sandboxes, and report back clean and stateless every time.
 
-- No workflow or DAG required
-- Python-native tools
-- Dynamic tool composition
-- Built-in gateway (Django)
-- Stateless execution (FastMCP)
+### Why ToolFlow?
+
+- **No workflows required** — tools compose at runtime, not at design time
+- **Python-native** — any Python function becomes a tool, zero boilerplate
+- **Stateless & isolated** — each execution runs in an ephemeral sandbox; failures don't bleed over
+- **Separated control & execution** — Django manages the control plane; FastMCP handles stateless execution
+- **Built-in lifecycle management** — version, release, and monitor tools without restarting anything
 
 ### Architecture & Invocation Flow
 
