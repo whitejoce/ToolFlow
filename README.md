@@ -16,7 +16,7 @@ Built on Django (control plane) + FastMCP (stateless execution layer).
 
 - 🐍 **Python-native tools** — write a function, register a tool. No boilerplate.
 - ⚡ **Dynamic composition** — tools combine at runtime, not at design time.
-- 🔒 **Ephemeral sandboxes** — every call runs in isolation; no shared state, no side effects.
+- 🔒 **Ephemeral sandboxes** — every call runs in a fresh in-process sandbox with restricted imports; tool state is not reused across calls, though external side effects (for example, network calls) are still possible.
 - 🧱 **Control plane / execution plane separation** — Django manages assets; FastMCP executes statelessly.
 - 🔄 **Built-in lifecycle management** — version, release, and monitor tools independently.
 
