@@ -12,6 +12,8 @@ No DAGs. No pipelines. No restarts. Tools are loaded, executed, and destroyed on
 
 Built on Django (control plane) + FastMCP (stateless execution layer).
 
+![ToolFlow Home Page](./img/home_page.jpeg)
+
 ### Key Features
 
 - 🐍 **Python-native tools** — write a function, register a tool. No boilerplate.
@@ -42,6 +44,7 @@ graph TD
 - `server/`: Django gateway and management APIs
 - `runtime/`: executor, bridge service, and runtime config
 - `frontend/`: React + Vite frontend
+- `test/`: preset tool scripts and test code
 - `start_services.py`: one-command local orchestrator
 
 ### Quick Start
@@ -50,7 +53,7 @@ graph TD
 
 ```bash
 python -m venv .venv
-.venv\Scripts\activate
+.venv/Scripts/activate
 pip install -r requirements.txt
 ```
 
@@ -59,6 +62,7 @@ pip install -r requirements.txt
 ```bash
 cd frontend
 npm install
+npm run dev
 ```
 
 3) Initialize database
@@ -66,14 +70,14 @@ npm install
 ```bash
 cd ../server
 python manage.py migrate
-python preset_tools.py
 ```
 
 4) Return to project root and start all services
 
 ```bash
 cd ..
-python start_services.py
+python ./test/preset_tools.py
+python start_services.py --reset
 ```
 
 Default frontend URL: `http://127.0.0.1:5173`

@@ -4,7 +4,7 @@
 
 ---
 
-**别再搭工作流了。写个函数，就是一个工具。**
+**别再搭工作流了，Python函数即工具。**
 
 ToolFlow 是一个运行时优先的 MCP 工具系统，专为 LLM 应用设计。你只需编写普通的 Python 函数，ToolFlow 负责版本管理、调度分发、隔离执行与运行时动态组合。
 
@@ -20,11 +20,14 @@ ToolFlow 是一个运行时优先的 MCP 工具系统，专为 LLM 应用设计�
 - 🧱 **控制面与执行面分离** — Django 管理工具资产，FastMCP 专注无状态执行。
 - 🔄 **内置生命周期管理** — 独立的版本控制、发布与监控。
 
+![ToolFlow Home Page](./img/home_page.jpeg)
+
 ### 目录结构
 
 - `server/`：Django 网关与后台管理 API
 - `runtime/`：执行器、桥接服务与运行配置
 - `frontend/`：React + Vite 前端
+- `test/`：预设工具脚本和测试代码
 - `start_services.py`：本地一键启动脚本
 
 ### 快速启动
@@ -33,7 +36,7 @@ ToolFlow 是一个运行时优先的 MCP 工具系统，专为 LLM 应用设计�
 
 ```bash
 python -m venv .venv
-.venv\Scripts\activate
+.venv/Scripts/activate
 pip install -r requirements.txt
 ```
 
@@ -42,21 +45,22 @@ pip install -r requirements.txt
 ```bash
 cd frontend
 npm install
+npm run dev
 ```
 
 3) 初始化数据库
 
 ```bash
-cd ..\server
+cd ../server
 python manage.py migrate
-python preset_tools.py
 ```
 
 4) 返回项目根目录并启动全部服务
 
 ```bash
 cd ..
-python start_services.py
+python ./test/preset_tools.py
+python start_services.py --reset
 ```
 
 前端默认地址：`http://127.0.0.1:5173`
